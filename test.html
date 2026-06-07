@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cr7World | Live Stream</title>
+    <script disable-devtool-auto src="https://cdn.jsdelivr.net/npm/disable-devtool"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: #f8fafc; color: #222; text-align: center; padding: 10px; }
+
+        .header-banner {
+            background: linear-gradient(45deg, #007bff, #0046a3);
+            color: white;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            max-width: 1100px;
+            margin: 0 auto 15px;
+            box-shadow: 0px 10px 20px rgba(0, 123, 255, 0.3);
+        }
+
+        .jersey-container {
+            max-width: 1100px;
+            margin: 0 auto 15px;
+            background: #ffffff;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 20px;
+            border: 2px dashed #3b82f6;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            gap: 10px;
+        }
+        .jersey-info { display: flex; align-items: center; gap: 15px; text-align: left; }
+        .jersey-icon { font-size: 32px; color: #3b82f6; display: flex; align-items: center; }
+        .jersey-text h4 { font-size: 18px; color: #1e293b; font-weight: 800; line-height: 1.2; }
+        .support-note {
+            font-size: 13px;
+            color: #ffffff;
+            font-weight: 700;
+            max-width: 1100px;
+            margin: 2px auto 12px;
+            text-align: center;
+            padding: 10px 14px;
+            background: linear-gradient(90deg, #0f172a, #1e3a8a);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.25);
+        }
+        .jersey-text p { font-size: 13px; color: #64748b; font-weight: 500; }
+        .btn-buy-now {
+            background: #f85a5e;
+            color: white;
+            text-decoration: none;
+            padding: 10px 22px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(248, 90, 94, 0.3);
+            white-space: nowrap;
+        }
+
+        .ads-top-wrap {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto 12px;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 10px;
+            border: 1px solid #dbeafe;
+        }
+
+        .sticky-ad-footer {
+            position: fixed;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 10px;
+            z-index: 1200;
+            width: 320px;
+            background: rgba(255, 255, 255, 0.98);
+            border: 1px solid #dbeafe;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+            padding: 10px;
+            text-align: center;
+        }
+        #stickyAdSlot {
+            width: 300px;
+            height: 250px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        #stickyAdSlot .adsbygoogle {
+            display: inline-block !important;
+            width: 300px !important;
+            height: 250px !important;
+            min-width: 300px !important;
+            max-width: 300px !important;
+            min-height: 250px !important;
+            max-height: 250px !important;
+        }
+        .sticky-ad-close {
+            position: absolute;
+            top: -11px;
+            left: 50%;
+            transform: translateX(-50%);
+            border: none;
+            background: #ef4444;
+            color: #fff;
+            width: 22px;
+            height: 22px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            line-height: 1;
+            z-index: 5;
+        }
+
+        @media (max-width: 480px) {
+            .jersey-container { padding: 10px 12px; }
+            .jersey-icon { font-size: 24px; }
+            .jersey-text h4 { font-size: 14px; }
+            .support-note { font-size: 11px; padding: 8px 10px; }
+            .jersey-text p { font-size: 11px; }
+            .btn-buy-now { padding: 8px 15px; font-size: 13px; }
+            .jersey-info { gap: 8px; }
+        }
+
+        .player-wrapper {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto 20px;
+            background: #000;
+            border-radius: 16px;
+            border: 4px solid #007bff;
+            overflow: hidden;
+            position: relative;
+            aspect-ratio: 16/9;
+            box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.4);
+        }
+        #iframePlayer { width: 100%; height: 100%; border: none; display: block; z-index: 2; position: relative; }
+
+        .fullscreen-btn {
+            position: absolute;
+            bottom: 14px;
+            right: 14px;
+            z-index: 35;
+            border: none;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        .fullscreen-btn:hover { background: rgba(0, 0, 0, 0.8); }
+
+        .loader {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px; height: 50px;
+            border: 5px solid #333;
+            border-top: 5px solid #007bff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            z-index: 1;
+        }
+        @keyframes spin { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
+
+        .hidden { display: none !important; }
+        .toast {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: #1e293b; color: #fff; padding: 14px 28px;
+            border-radius: 50px; font-size: 14px; z-index: 1000;
+            opacity: 0; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .toast.show { opacity: 1; bottom: 40px; }
+        .error-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); display: none; flex-direction: column;
+            justify-content: center; align-items: center; z-index: 50; color: white;
+        }
+        .error-overlay.show { display: flex; }
+        .promo-card, .info-card {
+            width: 100%; max-width: 1100px;
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            padding: 20px; border-radius: 12px; color: white;
+            margin: 15px auto; display: flex; flex-direction: column;
+            align-items: center; gap: 15px; font-weight: bold; font-size: 18px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .promo-buttons { display: flex; gap: 15px; justify-content: center; width: 100%; }
+        .promo-buttons a, .info-card button {
+            color: white; text-decoration: none; border: 2px solid rgba(255,255,255,0.4);
+            padding: 12px 22px; border-radius: 8px; font-size: 16px;
+            background: rgba(255,255,255,0.1); cursor: pointer; transition: 0.3s ease;
+            display: flex; align-items: center; gap: 10px; justify-content: center;
+        }
+        .info-card button { width: 100%; }
+        .promo-buttons a:hover, .info-card button:hover {
+            background: white; color: #007bff; border-color: white; transform: translateY(-2px);
+        }
+        .dmca-container {
+            width: 100%; max-width: 1100px;
+            margin: 30px auto; padding: 25px;
+            background: #ffffff; border-radius: 12px;
+            border: 1px solid #e2e8f0; text-align: left;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        .dmca-title {
+            color: #007bff; font-size: 18px; font-weight: 800;
+            margin-bottom: 12px; display: flex; align-items: center; gap: 10px;
+            text-transform: uppercase;
+        }
+        .dmca-text { color: #64748b; font-size: 13px; line-height: 1.6; }
+
+        @media (max-width: 600px) {
+            .promo-buttons { flex-direction: column; }
+            .promo-buttons a { width: 100%; }
+            .dmca-container { padding: 15px; }
+        }
+
+        #adb-wrapper {
+            position: fixed; inset: 0; background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px); display: none;
+            align-items: center; justify-content: center; z-index: 2147483647;
+        }
+        .adb-card {
+            background: #fff; padding: 40px; border-radius: 24px; text-align: center;
+            max-width: 450px; width: 90%; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        .adb-btn {
+            background: #2563eb; color: white; border: none; padding: 15px;
+            border-radius: 12px; font-weight: 700; cursor: pointer; width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-banner">Cr7World</div>
+
+    <div class="support-note">Skip 1-2 Ads to Support Us !</div>
+
+    <div id="prePlayerAd" class="ads-top-wrap"></div>
+
+    <div class="player-wrapper">
+        <div class="loader"></div>
+        <iframe id="iframePlayer" allow="autoplay; encrypted-media"></iframe>
+        <button class="fullscreen-btn" id="fullscreenBtn" type="button" aria-label="Toggle fullscreen">
+            <i class="fas fa-expand"></i>
+        </button>
+        <div class="error-overlay" id="errorOverlay">
+            <p id="errorMsg" style="font-size: 20px; margin-bottom: 10px;">No Stream Source Provided</p>
+            <button style="padding:10px 20px; border-radius:8px; border:none; background:#007bff; color:white; cursor:pointer;" onclick="location.reload()">Retry Connection</button>
+        </div>
+    </div>
+
+    <div id="stickyAd" class="sticky-ad-footer" style="display:none;">
+        <button id="stickyAdClose" class="sticky-ad-close" type="button" aria-label="Close ad">X</button>
+        <div id="stickyAdSlot"></div>
+    </div>
+
+    <div class="promo-card">
+        <span>📢 Join our community for live updates!</span>
+        <div class="promo-buttons">
+            <a href="https://t.me/Cr7Worldlive" target="_blank"><i class="fab fa-telegram-plane"></i> Telegram</a>
+            <a href="https://www.whatsapp.com/channel/0029Vb7ikzn9hXF5ec0uUI0H" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        </div>
+    </div>
+
+    <div class="info-card">
+        <span>Share with Friends & Family</span>
+        <button onclick="shareLink()"><i class="fas fa-share-alt"></i> Copy This Live Stream ❤️</button>
+    </div>
+
+    <div class="dmca-container">
+        <div class="dmca-title">
+            <i class="fas fa-balance-scale"></i> DMCA Notice
+        </div>
+        <div class="dmca-text">
+            <strong>Cr7World</strong> does not host any media content on its own servers. Our site visitors might use external or third parties services to show content (Example: Embedding media from sites like <strong>Bet365, Dailymotion, Streamable</strong>, etc.)
+        </div>
+    </div>
+
+    <div id="adb-wrapper">
+        <div class="adb-card">
+            <div style="font-size: 50px; margin-bottom: 15px;">🚫</div>
+            <h2 style="color: #1e293b; margin-bottom: 10px;">Ad-blocker Detected</h2>
+            <p style="color: #64748b; margin-bottom: 20px;">Please disable your Ad-blocker to support our free live streaming service.</p>
+            <button onclick="window.location.reload()" class="adb-btn">I've disabled it, refresh</button>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="./googleads.js"></script>
+    <script>
+        (function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const sourceUrl = urlParams.get('src');
+            const iframe = document.getElementById('iframePlayer');
+            const errorOverlay = document.getElementById('errorOverlay');
+
+            if (sourceUrl) {
+                iframe.src = sourceUrl;
+                iframe.onload = () => { document.querySelector('.loader').style.display = 'none'; };
+            } else {
+                iframe.classList.add('hidden');
+                document.querySelector('.loader').style.display = 'none';
+                errorOverlay.classList.add('show');
+            }
+        })();
+
+        function shareLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                const toast = document.getElementById('toast');
+                toast.innerText = "Link Copied Successfully!";
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 3000);
+            });
+        }
+
+        (function() {
+            const wrapper = document.querySelector('.player-wrapper');
+            const btn = document.getElementById('fullscreenBtn');
+            const icon = btn.querySelector('i');
+
+            async function toggleFullscreen() {
+                if (!document.fullscreenElement) {
+                    await wrapper.requestFullscreen();
+                } else {
+                    await document.exitFullscreen();
+                }
+            }
+
+            btn.addEventListener('click', () => {
+                toggleFullscreen().catch(() => {});
+            });
+
+            document.addEventListener('fullscreenchange', () => {
+                const isActive = document.fullscreenElement === wrapper;
+                icon.className = isActive ? 'fas fa-compress' : 'fas fa-expand';
+            });
+        })();
+
+        async function checkAdBlocker() {
+            let isBlocked = false;
+            try {
+                await fetch(new Request('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'), { method: 'HEAD', mode: 'no-cors' });
+            } catch (e) { isBlocked = true; }
+            if (isBlocked) {
+                document.getElementById('adb-wrapper').style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        window.addEventListener('load', () => setTimeout(checkAdBlocker, 1500));
+
+        // Redirect Logic
+        (function() {
+            const REDIRECT_KEY = "lastRedirectTime";
+            const REDIRECT_URL = "https://Cr7World-api.pages.dev/api/ads";
+            const DELAY = 70 * 1000;
+            const COOLDOWN = 5 * 60 * 60 * 1000;
+            const lastTime = localStorage.getItem(REDIRECT_KEY);
+            if (!lastTime || (Date.now() - parseInt(lastTime, 10)) >= COOLDOWN) {
+                setTimeout(() => {
+                    localStorage.setItem(REDIRECT_KEY, Date.now().toString());
+                    window.location.href = REDIRECT_URL;
+                }, DELAY);
+            }
+        })();
+
+        // Monetag
+        setTimeout(() => {
+            (function(s, u, z, p) {
+                s.src = u; s.setAttribute('data-zone', z);
+                p.appendChild(s);
+            })(document.createElement('script'), 'https://bvtpk.com/tag.min.js', 7463304, document.body || document.documentElement);
+        }, 8000);
+    </script>
+
+    <div style="position:fixed;top:0;left:0;width:1px;height:1px;overflow:hidden;visibility:hidden;">
+        <script type="text/javascript" src="//widget.supercounters.com/ssl/online_i.js"></script>
+        <script type="text/javascript">sc_online_i(1665792,"ffffff","e61c1c");</script>
+    </div>
+</body>
+</html>
