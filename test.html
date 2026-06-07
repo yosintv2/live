@@ -150,24 +150,6 @@
         }
         #iframePlayer { width: 100%; height: 100%; border: none; display: block; z-index: 2; position: relative; }
 
-        .fullscreen-btn {
-            position: absolute;
-            bottom: 14px;
-            right: 14px;
-            z-index: 35;
-            border: none;
-            border-radius: 10px;
-            background: rgba(0, 0, 0, 0.6);
-            color: #fff;
-            width: 42px;
-            height: 42px;
-            display: grid;
-            place-items: center;
-            cursor: pointer;
-            transition: background 0.2s ease;
-        }
-        .fullscreen-btn:hover { background: rgba(0, 0, 0, 0.8); }
-
         .loader {
             position: absolute; top: 50%; left: 50%;
             transform: translate(-50%, -50%);
@@ -258,9 +240,6 @@
     <div class="player-wrapper">
         <div class="loader"></div>
         <iframe id="iframePlayer" allow="autoplay; encrypted-media"></iframe>
-        <button class="fullscreen-btn" id="fullscreenBtn" type="button" aria-label="Toggle fullscreen">
-            <i class="fas fa-expand"></i>
-        </button>
         <div class="error-overlay" id="errorOverlay">
             <p id="errorMsg" style="font-size: 20px; margin-bottom: 10px;">No Stream Source Provided</p>
             <button style="padding:10px 20px; border-radius:8px; border:none; background:#007bff; color:white; cursor:pointer;" onclick="location.reload()">Retry Connection</button>
@@ -331,29 +310,6 @@
                 setTimeout(() => toast.classList.remove('show'), 3000);
             });
         }
-
-        (function() {
-            const wrapper = document.querySelector('.player-wrapper');
-            const btn = document.getElementById('fullscreenBtn');
-            const icon = btn.querySelector('i');
-
-            async function toggleFullscreen() {
-                if (!document.fullscreenElement) {
-                    await wrapper.requestFullscreen();
-                } else {
-                    await document.exitFullscreen();
-                }
-            }
-
-            btn.addEventListener('click', () => {
-                toggleFullscreen().catch(() => {});
-            });
-
-            document.addEventListener('fullscreenchange', () => {
-                const isActive = document.fullscreenElement === wrapper;
-                icon.className = isActive ? 'fas fa-compress' : 'fas fa-expand';
-            });
-        })();
 
         async function checkAdBlocker() {
             let isBlocked = false;
