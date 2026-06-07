@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YoSinTV | Live Stream</title>
+    <title>Cr7World | Live Stream</title>
     <script disable-devtool-auto src="https://cdn.jsdelivr.net/npm/disable-devtool"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
@@ -150,35 +150,6 @@
         }
         #iframePlayer { width: 100%; height: 100%; border: none; display: block; z-index: 2; position: relative; }
 
-        .channel-logo {
-            position: absolute;
-            top: 14px;
-            right: 14px;
-            width: clamp(110px, 15vw, 200px);
-            height: auto;
-            z-index: 30;
-            pointer-events: none;
-            user-select: none;
-            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.55));
-        }
-        .fullscreen-btn {
-            position: absolute;
-            bottom: 14px;
-            right: 14px;
-            z-index: 35;
-            border: none;
-            border-radius: 10px;
-            background: rgba(0, 0, 0, 0.6);
-            color: #fff;
-            width: 42px;
-            height: 42px;
-            display: grid;
-            place-items: center;
-            cursor: pointer;
-            transition: background 0.2s ease;
-        }
-        .fullscreen-btn:hover { background: rgba(0, 0, 0, 0.8); }
-
         .loader {
             position: absolute; top: 50%; left: 50%;
             transform: translate(-50%, -50%);
@@ -260,7 +231,7 @@
     </style>
 </head>
 <body>
-    <div class="header-banner">YoSinTV</div>
+    <div class="header-banner">Cr7World</div>
 
     <div class="support-note">Skip 1-2 Ads to Support Us !</div>
 
@@ -269,10 +240,6 @@
     <div class="player-wrapper">
         <div class="loader"></div>
         <iframe id="iframePlayer" allow="autoplay; encrypted-media"></iframe>
-        <img class="channel-logo" src="https://web.cricfoot.net/logo.png" alt="Channel Logo" loading="eager" decoding="async" referrerpolicy="no-referrer">
-        <button class="fullscreen-btn" id="fullscreenBtn" type="button" aria-label="Toggle fullscreen">
-            <i class="fas fa-expand"></i>
-        </button>
         <div class="error-overlay" id="errorOverlay">
             <p id="errorMsg" style="font-size: 20px; margin-bottom: 10px;">No Stream Source Provided</p>
             <button style="padding:10px 20px; border-radius:8px; border:none; background:#007bff; color:white; cursor:pointer;" onclick="location.reload()">Retry Connection</button>
@@ -287,7 +254,7 @@
     <div class="promo-card">
         <span>📢 Join our community for live updates!</span>
         <div class="promo-buttons">
-            <a href="https://t.me/yosintvlive" target="_blank"><i class="fab fa-telegram-plane"></i> Telegram</a>
+            <a href="https://t.me/Cr7Worldlive" target="_blank"><i class="fab fa-telegram-plane"></i> Telegram</a>
             <a href="https://www.whatsapp.com/channel/0029Vb7ikzn9hXF5ec0uUI0H" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
         </div>
     </div>
@@ -302,7 +269,7 @@
             <i class="fas fa-balance-scale"></i> DMCA Notice
         </div>
         <div class="dmca-text">
-            <strong>YoSinTV</strong> does not host any media content on its own servers. Our site visitors might use external or third parties services to show content (Example: Embedding media from sites like <strong>Bet365, Dailymotion, Streamable</strong>, etc.)
+            <strong>Cr7World</strong> does not host any media content on its own servers. Our site visitors might use external or third parties services to show content (Example: Embedding media from sites like <strong>Bet365, Dailymotion, Streamable</strong>, etc.)
         </div>
     </div>
 
@@ -344,29 +311,6 @@
             });
         }
 
-        (function() {
-            const wrapper = document.querySelector('.player-wrapper');
-            const btn = document.getElementById('fullscreenBtn');
-            const icon = btn.querySelector('i');
-
-            async function toggleFullscreen() {
-                if (!document.fullscreenElement) {
-                    await wrapper.requestFullscreen();
-                } else {
-                    await document.exitFullscreen();
-                }
-            }
-
-            btn.addEventListener('click', () => {
-                toggleFullscreen().catch(() => {});
-            });
-
-            document.addEventListener('fullscreenchange', () => {
-                const isActive = document.fullscreenElement === wrapper;
-                icon.className = isActive ? 'fas fa-compress' : 'fas fa-expand';
-            });
-        })();
-
         async function checkAdBlocker() {
             let isBlocked = false;
             try {
@@ -378,10 +322,11 @@
             }
         }
         window.addEventListener('load', () => setTimeout(checkAdBlocker, 1500));
-                // Redirect Logic
+
+        // Redirect Logic
         (function() {
             const REDIRECT_KEY = "lastRedirectTime";
-            const REDIRECT_URL = "https://yosintv-api.pages.dev/api/ads";
+            const REDIRECT_URL = "https://Cr7World-api.pages.dev/api/ads";
             const DELAY = 70 * 1000;
             const COOLDOWN = 5 * 60 * 60 * 1000;
             const lastTime = localStorage.getItem(REDIRECT_KEY);
@@ -393,19 +338,6 @@
             }
         })();
 
-        // Adblock Logic
-        async function checkAdBlocker() {
-            let isBlocked = false;
-            try {
-                await fetch(new Request('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'), { method: 'HEAD', mode: 'no-cors' });
-            } catch (e) { isBlocked = true; }
-            if (isBlocked) {
-                document.getElementById('adb-wrapper').style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-            }
-        }
-        window.addEventListener('load', () => setTimeout(checkAdBlocker, 1500));
-
         // Monetag
         setTimeout(() => {
             (function(s, u, z, p) {
@@ -414,6 +346,7 @@
             })(document.createElement('script'), 'https://bvtpk.com/tag.min.js', 7463304, document.body || document.documentElement);
         }, 8000);
     </script>
+
     <div style="position:fixed;top:0;left:0;width:1px;height:1px;overflow:hidden;visibility:hidden;">
         <script type="text/javascript" src="//widget.supercounters.com/ssl/online_i.js"></script>
         <script type="text/javascript">sc_online_i(1687371,"ffffff","e61c1c");</script>
