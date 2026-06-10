@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -228,6 +229,8 @@
             background: #2563eb; color: white; border: none; padding: 15px;
             border-radius: 12px; font-weight: 700; cursor: pointer; width: 100%;
         }
+        .random-link-wrapper { max-width: 1100px; margin: 10px auto; }
+        .random-link { display: block; width: 100%; color: #007bff; text-decoration: none; font-weight: 700; padding: 12px; border-radius: 8px; text-align: center; }
     </style>
 </head>
 <body>
@@ -236,6 +239,7 @@
     <div class="support-note">Skip 1-2 Ads to Support Us !</div>
 
     <div id="prePlayerAd" class="ads-top-wrap"></div>
+
 
     <div class="player-wrapper">
         <div class="loader"></div>
@@ -310,6 +314,46 @@
                 setTimeout(() => toast.classList.remove('show'), 3000);
             });
         }
+
+        async function loadRandomLink() {
+            const remoteUrl = 'https://cdn.singhs.com.np/api/links.json';
+            let links = [];
+            try {
+                const r = await fetch(remoteUrl, { cache: 'no-cache' });
+                if (r.ok) {
+                    const data = await r.json();
+                    if (Array.isArray(data) && data.length) links = data;
+                }
+            } catch (e) { console.warn('remote links fetch failed', e); }
+
+            if (!links.length) {
+                try {
+                    const res = await fetch('./links.json');
+                    if (res.ok) {
+                        const local = await res.json();
+                        if (Array.isArray(local) && local.length) links = local;
+                    }
+                } catch (e) { console.warn('local links fetch failed', e); }
+            }
+
+            if (!links.length) return;
+            const item = links[Math.floor(Math.random() * links.length)];
+            const a = document.createElement('a');
+            a.href = item.href || '#';
+            a.innerText = item.text || 'America vs Africa - Match Highlights';
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+            a.className = 'random-link';
+            const preAd = document.getElementById('prePlayerAd');
+            if (preAd) {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'random-link-wrapper';
+                wrapper.appendChild(a);
+                preAd.insertAdjacentElement('afterend', wrapper);
+            }
+        }
+
+        window.addEventListener('load', loadRandomLink);
 
         async function checkAdBlocker() {
             let isBlocked = false;
