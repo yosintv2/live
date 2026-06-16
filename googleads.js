@@ -1,4 +1,11 @@
 (function () {
+  // ===== AD CONFIG — flip these true/false to show or hide ads =====
+  const CONFIG = {
+    showAds: true,        // MASTER switch: set false to hide ALL ads (nothing loads)
+    showTopAd: true,      // top responsive banner ad (#prePlayerAd)
+    showStickyAd: true    // sticky 300x250 footer ad (#stickyAd)
+  };
+
   const ADS_CLIENT = 'ca-pub-7981191925382455';
   const ADS_SLOT = '3322637685';
 
@@ -65,22 +72,40 @@
     });
   }
 
-  function pushAds() {
+  function pushAds(count) {
     try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
+      for (let i = 0; i < count; i++) {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      }
     } catch (err) {
       // Ignore ad-init errors to avoid breaking the page.
     }
   }
 
   function initGoogleAds() {
-    loadAdsense();
-    initTopAd();
-    initStickyFooterAd();
+    // Master switch off → do not load AdSense or render any ad units.
+    if (!CONFIG.showAds) return;
 
-    // Allow script load before pushing requests.
-    setTimeout(pushAds, 400);
+    loadAdsense();
+
+    // Render only the enabled units, and count how many we render
+    // so we push exactly one request per visible ad unit.
+    let adCount = 0;
+
+    if (CONFIG.showTopAd) {
+      initTopAd();
+      adCount++;
+    }
+
+    if (CONFIG.showStickyAd) {
+      initStickyFooterAd();
+      adCount++;
+    }
+
+    if (adCount > 0) {
+      // Allow script load before pushing requests.
+      setTimeout(function () { pushAds(adCount); }, 400);
+    }
   }
 
   if (document.readyState === 'loading') {
