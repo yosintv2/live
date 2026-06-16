@@ -3,7 +3,7 @@
   const CONFIG = {
     showAds: true,        // MASTER switch: set false to hide ALL ads (nothing loads)
     showTopAd: true,      // top responsive banner ad (#prePlayerAd)
-    showStickyAd: true    // sticky 300x250 footer ad (#stickyAd)
+    showStickyAd: false    // sticky 300x250 footer ad (#stickyAd)
   };
 
   const ADS_CLIENT = 'ca-pub-7981191925382455';
