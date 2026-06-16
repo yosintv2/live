@@ -1,6 +1,6 @@
 (function () {
   // --- CONFIGURATION ---
-  const SHOW_ADS = false; // Set to false to fully hide and disable all Google Ads
+  const SHOW_ADS = true; // Set to false to fully hide and disable all Google Ads
   const ADS_CLIENT = 'ca-pub-7981191925382455';
   const ADS_SLOT = '3322637685';
   // ---------------------
