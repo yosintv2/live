@@ -4,8 +4,8 @@
     showAds: true,          // MASTER switch: false hides ALL ads (nothing loads)
     showTopAd: true,        // top banner ad (#prePlayerAd)
     showStickyAd: true,     // sticky footer ad (#stickyAd)
-    adNetwork: 'adsterra'     // 'google'  = Google AdSense
-                            // 'adsterra' = Adsterra
+    adNetwork: 'adsterra'     // 'google'  = Google AdSense (auto-resizes itself)
+                            // 'adsterra' = Adsterra (size picked by device below)
   };
 
   // ----- Google AdSense settings -----
@@ -13,10 +13,21 @@
   const ADS_SLOT = '3322637685';
 
   // ----- Adsterra settings (key + size per slot) -----
+  // Top slot serves a different size on desktop vs mobile.
   const ADSTERRA = {
-    top:    { key: '59fe9c4b56396dce66c5e0673b9721cf', width: 728, height: 90 },
-    sticky: { key: '404fc8f3cacfd3432bb75ca06f2afb48', width: 300, height: 250 }
+    top: {
+      desktop: { key: '59fe9c4b56396dce66c5e0673b9721cf', width: 728, height: 90 },
+      mobile:  { key: 'cc397015139acb8115e370f256273501', width: 320, height: 50 }
+    },
+    sticky:    { key: '404fc8f3cacfd3432bb75ca06f2afb48', width: 300, height: 250 }
   };
+
+  // Viewport <= this width is treated as "mobile" for the top Adsterra banner.
+  const MOBILE_BREAKPOINT = 768;
+
+  function isMobile() {
+    return window.matchMedia('(max-width: ' + MOBILE_BREAKPOINT + 'px)').matches;
+  }
 
   /* =====================================================================
      GOOGLE ADSENSE
@@ -54,6 +65,7 @@
       ins.setAttribute('data-ad-format', '');
       ins.setAttribute('data-full-width-responsive', 'false');
     } else {
+      // Responsive: Google already serves a device-appropriate size here.
       ins.setAttribute('data-ad-format', 'auto');
       ins.setAttribute('data-full-width-responsive', 'true');
     }
@@ -148,9 +160,11 @@
 
     if (CONFIG.showTopAd) {
       if (useAdsterra) {
-        fillTopSlot(createAdsterraFrame(ADSTERRA.top));
+        // Pick the device-appropriate Adsterra banner for the top slot.
+        const topUnit = isMobile() ? ADSTERRA.top.mobile : ADSTERRA.top.desktop;
+        fillTopSlot(createAdsterraFrame(topUnit));
       } else {
-        fillTopSlot(createAdIns('top-responsive'));
+        fillTopSlot(createAdIns('top-responsive')); // Google auto-resizes
         googleCount++;
       }
     }
