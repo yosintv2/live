@@ -1,6 +1,21 @@
 (function () {
+  // --- CONFIGURATION ---
+  const SHOW_ADS = false; // Set to false to fully hide and disable all Google Ads
   const ADS_CLIENT = 'ca-pub-7981191925382455';
   const ADS_SLOT = '3322637685';
+  // ---------------------
+
+  // If SHOW_ADS is false, stop execution immediately and hide container wrappers
+  if (!SHOW_ADS) {
+    document.addEventListener('DOMContentLoaded', function() {
+      const stickyWrap = document.getElementById('stickyAd');
+      if (stickyWrap) stickyWrap.style.display = 'none';
+      
+      const topWrap = document.getElementById('prePlayerAd');
+      if (topWrap) topWrap.style.display = 'none';
+    });
+    return; 
+  }
 
   function loadAdsense() {
     if (document.querySelector('script[data-google-adsense="main"]')) {
