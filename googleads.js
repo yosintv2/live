@@ -1,37 +1,15 @@
 (function () {
   // ===== AD CONFIG — flip these to control ads =====
   const CONFIG = {
-    showAds: true,          // MASTER switch: false hides ALL ads (nothing loads)
-    showTopAd: true,        // top banner ad (#prePlayerAd)
-    showStickyAd: false,     // sticky footer ad (#stickyAd)
-    adNetwork: 'google'     // 'google'  = Google AdSense (auto-resizes itself)
-                            // 'adsterra' = Adsterra (size picked by device below)
+    showAds: true,        // MASTER switch: false hides ALL ads (nothing loads)
+    showTopAd: true,      // top banner ad (#prePlayerAd)
+    showStickyAd: false   // sticky footer ad (#stickyAd)
   };
 
   // ----- Google AdSense settings -----
   const ADS_CLIENT = 'ca-pub-7981191925382455';
   const ADS_SLOT = '3322637685';
 
-  // ----- Adsterra settings (key + size per slot) -----
-  // Top slot serves a different size on desktop vs mobile.
-  const ADSTERRA = {
-    top: {
-      desktop: { key: '59fe9c4b56396dce66c5e0673b9721cf', width: 728, height: 90 },
-      mobile:  { key: 'cc397015139acb8115e370f256273501', width: 320, height: 50 }
-    },
-    sticky:    { key: '404fc8f3cacfd3432bb75ca06f2afb48', width: 300, height: 250 }
-  };
-
-  // Viewport <= this width is treated as "mobile" for the top Adsterra banner.
-  const MOBILE_BREAKPOINT = 768;
-
-  function isMobile() {
-    return window.matchMedia('(max-width: ' + MOBILE_BREAKPOINT + 'px)').matches;
-  }
-
-  /* =====================================================================
-     GOOGLE ADSENSE
-     ===================================================================== */
   function loadAdsense() {
     if (document.querySelector('script[data-google-adsense="main"]')) {
       return;
@@ -65,11 +43,35 @@
       ins.setAttribute('data-ad-format', '');
       ins.setAttribute('data-full-width-responsive', 'false');
     } else {
-      // Responsive: Google already serves a device-appropriate size here.
+      // Responsive: Google serves a device-appropriate size here.
       ins.setAttribute('data-ad-format', 'auto');
       ins.setAttribute('data-full-width-responsive', 'true');
     }
     return ins;
+  }
+
+  function initTopAd() {
+    const topWrap = document.getElementById('prePlayerAd');
+    if (!topWrap) return false;
+    topWrap.innerHTML = '';
+    topWrap.appendChild(createAdIns('top-responsive'));
+    return true;
+  }
+
+  function initStickyFooterAd() {
+    const stickyWrap = document.getElementById('stickyAd');
+    const stickySlot = document.getElementById('stickyAdSlot');
+    const closeBtn = document.getElementById('stickyAdClose');
+    if (!stickyWrap || !stickySlot || !closeBtn) return false;
+
+    stickySlot.innerHTML = '';
+    stickySlot.appendChild(createAdIns('sticky-square'));
+    stickyWrap.style.display = 'block';
+
+    closeBtn.addEventListener('click', function () {
+      stickyWrap.style.display = 'none';
+    });
+    return true;
   }
 
   function pushAds(count) {
@@ -82,111 +84,32 @@
     }
   }
 
-  /* =====================================================================
-     ADSTERRA
-     Each unit runs in its own iframe so the global `atOptions` variable
-     used by invoke.js can't collide between the two units.
-     ===================================================================== */
-  function createAdsterraFrame(unit) {
-    const frame = document.createElement('iframe');
-    frame.width = unit.width;
-    frame.height = unit.height;
-    frame.scrolling = 'no';
-    frame.setAttribute('frameborder', '0');
-    frame.style.border = '0';
-    frame.style.display = 'block';
-    frame.style.margin = '0 auto';
-    frame.style.width = unit.width + 'px';
-    frame.style.height = unit.height + 'px';
-    frame.style.maxWidth = '100%'; // avoid horizontal overflow on narrow screens
-
-    const opts = {
-      key: unit.key,
-      format: 'iframe',
-      height: unit.height,
-      width: unit.width,
-      params: {}
-    };
-
-    frame.srcdoc =
-      '<!DOCTYPE html><html><head><meta charset="utf-8">' +
-      '<style>html,body{margin:0;padding:0;overflow:hidden;}</style></head><body>' +
-      '<script type="text/javascript">atOptions = ' + JSON.stringify(opts) + ';<\/script>' +
-      '<script type="text/javascript" src="https://www.highperformanceformat.com/' +
-      unit.key + '/invoke.js"><\/script>' +
-      '</body></html>';
-
-    return frame;
-  }
-
-  /* =====================================================================
-     SHARED SLOT WRAPPERS (work for either network)
-     ===================================================================== */
-  function fillTopSlot(node) {
-    const topWrap = document.getElementById('prePlayerAd');
-    if (!topWrap) return false;
-    topWrap.innerHTML = '';
-    topWrap.appendChild(node);
-    return true;
-  }
-
-  function fillStickySlot(node) {
-    const stickyWrap = document.getElementById('stickyAd');
-    const stickySlot = document.getElementById('stickyAdSlot');
-    const closeBtn = document.getElementById('stickyAdClose');
-    if (!stickyWrap || !stickySlot || !closeBtn) return false;
-
-    stickySlot.innerHTML = '';
-    stickySlot.appendChild(node);
-    stickyWrap.style.display = 'block';
-
-    closeBtn.addEventListener('click', function () {
-      stickyWrap.style.display = 'none';
-    });
-    return true;
-  }
-
-  /* =====================================================================
-     INIT
-     ===================================================================== */
-  function initAds() {
+  function initGoogleAds() {
     if (!CONFIG.showAds) return; // master switch off
 
-    const useAdsterra = CONFIG.adNetwork === 'adsterra';
+    loadAdsense();
 
-    if (!useAdsterra) loadAdsense();
-
-    let googleCount = 0; // number of Google units rendered (for pushAds)
+    let adCount = 0; // number of units rendered (for pushAds)
 
     if (CONFIG.showTopAd) {
-      if (useAdsterra) {
-        // Pick the device-appropriate Adsterra banner for the top slot.
-        const topUnit = isMobile() ? ADSTERRA.top.mobile : ADSTERRA.top.desktop;
-        fillTopSlot(createAdsterraFrame(topUnit));
-      } else {
-        fillTopSlot(createAdIns('top-responsive')); // Google auto-resizes
-        googleCount++;
-      }
+      initTopAd();
+      adCount++;
     }
 
     if (CONFIG.showStickyAd) {
-      if (useAdsterra) {
-        fillStickySlot(createAdsterraFrame(ADSTERRA.sticky));
-      } else {
-        fillStickySlot(createAdIns('sticky-square'));
-        googleCount++;
-      }
+      initStickyFooterAd();
+      adCount++;
     }
 
-    // Push exactly one request per rendered Google unit.
-    if (googleCount > 0) {
-      setTimeout(function () { pushAds(googleCount); }, 400);
+    // Push exactly one request per rendered ad unit.
+    if (adCount > 0) {
+      setTimeout(function () { pushAds(adCount); }, 400);
     }
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initAds);
+    document.addEventListener('DOMContentLoaded', initGoogleAds);
   } else {
-    initAds();
+    initGoogleAds();
   }
 })();
