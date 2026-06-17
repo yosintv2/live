@@ -3,7 +3,7 @@
   const CONFIG = {
     showAds: true,        // MASTER switch: false hides ALL ads (nothing loads)
     showTopAd: true,      // top banner ad (#prePlayerAd)
-    showStickyAd: false   // sticky footer ad (#stickyAd)
+    showStickyAd: false   // 300x250 - sticky footer ad (#stickyAd)
   };
 
   // ----- Google AdSense settings -----
