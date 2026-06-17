@@ -4,7 +4,7 @@
     showAds: true,          // MASTER switch: false hides ALL ads (nothing loads)
     showTopAd: true,        // top banner ad (#prePlayerAd)
     showStickyAd: false,     // sticky footer ad (#stickyAd)
-    adNetwork: 'adsterra'     // 'google'  = Google AdSense (auto-resizes itself)
+    adNetwork: 'google'     // 'google'  = Google AdSense (auto-resizes itself)
                             // 'adsterra' = Adsterra (size picked by device below)
   };
 
