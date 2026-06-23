@@ -10,12 +10,12 @@
   // ----- Google AdSense settings 5525538810839147/4345862479 -----
 
 
-  const ADS_CLIENT = 'ca-pub-5525538810839147';
-  const ADS_SLOT = '4345862479';
+//  const ADS_CLIENT = 'ca-pub-5525538810839147';
+//  const ADS_SLOT = '4345862479';
   
   
- // const ADS_CLIENT = 'ca-pub-7981191925382455';
-//  const ADS_SLOT = '3322637685';
+const ADS_CLIENT = 'ca-pub-7981191925382455';
+const ADS_SLOT = '3322637685';
 
   function loadAdsense() {
     if (document.querySelector('script[data-google-adsense="main"]')) {
