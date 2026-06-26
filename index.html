@@ -31,8 +31,8 @@
   <meta name="twitter:image" content="/favico.png"/>
   <meta name="twitter:site" content="@YoNoTV"/>
 
-  <link rel="icon" href="https://www.yosintv.net/favico.png" type="image/png"/>
-  <link rel="apple-touch-icon" href="https://www.yosintv.net/favico.png"/>
+  <link rel="icon" href="https://www.yonotv.net/favicon.ico" type="image/x-icon"/>
+  <link rel="apple-touch-icon" href="https://www.yonotv.net/favicon.ico"/>
 
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -111,8 +111,7 @@
     }
     .hdr-r { display: flex; align-items: center; gap: 0.7rem; }
     .logo { text-decoration: none; display: flex; align-items: center; }
-    .logo-main { font-family: var(--fh); font-size: 1.7rem; font-weight: 800; background: linear-gradient(135deg, var(--brand), var(--accent)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: .05em; }
-    .logo-sub { font-family: var(--fb); font-size: .6rem; font-weight: 800; color: var(--muted); letter-spacing: .15em; text-transform: uppercase; display: block; line-height: 1; margin-top: -2px; -webkit-text-fill-color: var(--muted); }
+    .logo-txt { font-family: var(--fh); font-size: 1.6rem; font-weight: 800; color: var(--ink); letter-spacing: .03em; }
     .si {
       border: 1px solid var(--line);
       background: var(--surface-soft);
@@ -245,13 +244,6 @@
       border-radius: 999px;
       background: rgba(255,255,255,.18);
       border: 1px solid rgba(255,255,255,.25);
-    }
-
-    .ad-wrap {
-      max-width: 1140px;
-      margin: 0 auto 14px;
-      padding: 0 1rem;
-      text-align: center;
     }
 
     .yst-wrap {
@@ -535,27 +527,6 @@
       font-size: 15px; display: flex; align-items: center; gap: 8px;
       transition: 0.3s; box-shadow: 0 4px 10px rgba(248, 90, 94, 0.3); white-space: nowrap;
     }
-    #cr7-player .ads-top-wrap {
-      width: 100%; max-width: 1100px; margin: 0 auto 12px;
-      background: #ffffff; border-radius: 12px; padding: 10px; border: 1px solid #dbeafe;
-    }
-    #cr7-player .sticky-ad-footer {
-      position: fixed; left: 50%; transform: translateX(-50%);
-      bottom: 10px; z-index: 1200; width: 320px;
-      background: rgba(255, 255, 255, 0.98); border: 1px solid #dbeafe;
-      border-radius: 12px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14); padding: 10px; text-align: center;
-    }
-    #cr7-player #stickyAdSlot { width: 300px; height: 250px; margin: 0 auto; overflow: hidden; }
-    #cr7-player #stickyAdSlot .adsbygoogle {
-      display: inline-block !important; width: 300px !important; height: 250px !important;
-      min-width: 300px !important; max-width: 300px !important;
-      min-height: 250px !important; max-height: 250px !important;
-    }
-    #cr7-player .sticky-ad-close {
-      position: absolute; top: -11px; left: 50%; transform: translateX(-50%);
-      border: none; background: #ef4444; color: #fff; width: 22px; height: 22px;
-      border-radius: 999px; font-size: 12px; font-weight: 700; cursor: pointer; line-height: 1; z-index: 5;
-    }
     #cr7-player .player-wrapper {
       width: 100%; max-width: 1100px; margin: 0 auto 20px; background: #000;
       border-radius: 16px; border: 4px solid #007bff; overflow: hidden;
@@ -628,16 +599,6 @@
       background: #2563eb; color: white; border: none; padding: 15px;
       border-radius: 12px; font-weight: 700; cursor: pointer; width: 100%;
     }
-    #cr7-player .random-link-wrapper { max-width: 1100px; margin: 10px auto; padding: 0 12px; }
-    #cr7-player .random-link {
-      display: block; width: 100%; background: #007bff;
-      color: #ffffff !important; text-decoration: none; font-weight: 800;
-      padding: 14px 18px; border-radius: 10px; text-align: center;
-      box-shadow: 0 6px 18px rgba(3, 102, 214, 0.18);
-      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
-      font-size: 16px;
-    }
-    #cr7-player .random-link:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(3,102,214,0.22); background: #0063d1; }
 
     @media (max-width: 480px) {
       #cr7-player .jersey-container { padding: 10px 12px; }
@@ -650,56 +611,12 @@
       #cr7-player .promo-buttons { flex-direction: column; }
       #cr7-player .promo-buttons a { width: 100%; }
       #cr7-player .dmca-container { padding: 15px; }
-      #cr7-player .random-link { padding: 12px 14px; font-size: 14px; border-radius: 8px; }
-      #cr7-player .random-link-wrapper { padding: 0 8px; }
     }
 
     @keyframes spin { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
   </style>
 
-  <!-- Fixed Bottom Ad -->
-  <style>
-    #fixedban {
-        position: fixed;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 999;
-        display: none;
-    }
-    .ad-container {
-        position: relative;
-        width: 300px;
-        height: 250px;
-        background: #fff;
-        border: 1px solid #e5e7eb;
-        border-radius: 10px;
-        box-shadow: 0 4px 15px rgba(0,0,0,.15);
-        overflow: hidden;
-    }
-    #close-fixedban {
-        position: absolute;
-        top: 8px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: none;
-        border: none;
-        color: #2563eb;
-        font-size: 14px;
-        font-weight: 500;
-        cursor: pointer;
-        z-index: 1000;
-    }
-    #close-fixedban:hover {
-        color: #1d4ed8;
-    }
-    .ad-content {
-        width: 300px;
-        height: 250px;
-        padding-top: 28px;
-        overflow: hidden;
-    }
-  </style>
+
 </head>
 <body>
   <script>
@@ -709,7 +626,7 @@
   <div id="yst-content">
     <header id="yst-hdr">
       <div class="hdr-in">
-        <a class="logo" href="/"><span class="logo-main">YoNo<span class="logo-sub">TV</span></span></a>
+        <a class="logo" href="/"><img src="https://blogger.googleusercontent.com/img/a/AVvXsEi8TSPm-DRmffZLdWHXWNBWGrwlXGmYzRbcRt7jheFJHKemDCo6XZ8fbB83dg7r7V5YtifzamBJWQWyJO4ifG2Muz5UQJE4ZBIxyG6mJMjEZorNKnI0d31XwjB7801y6tE_eopy0oIoyCfEuIHcM3kx97tOkNhlKFHufajWFNLf49iW6X3P-qYhYjGOYsA=w200" alt="YoNo TV" style="height:42px;display:block;"></a>
         <div class="hdr-r">
           <input class="si" id="yst-s" placeholder="Quick search in recent posts" type="text"/>
           <label class="tgl" title="Dark Mode"><input id="yst-dm" type="checkbox"/><span class="sldr"></span></label>
@@ -725,12 +642,9 @@
         <a class="nl" href="#" data-filter="Playing XI">Playing XI</a>
         <a class="nl" href="#" data-filter="Match Preview">Preview</a>
         <a class="nl" href="#" data-filter="T20 World Cup">T20 WC 2026</a>
-        <a class="nl" href="https://www.cricfoot.net/?ads=yosintv.net" rel="noopener" target="_blank">Highlights</a>
         <a class="nl" href="https://t.me/yosintvlive" rel="noopener" target="_blank">Telegram</a>
       </div>
     </nav>
-
-    <div class="ad-wrap" id="ad-top"></div>
 
     <div class="yst-wrap">
       <main>
@@ -742,8 +656,6 @@
           </div>
           <div class="evg" id="yst-cr-ev"><p class="ev-loading">Loading cricket events...</p></div>
         </section>
-
-        <div class="ad-wrap" id="ad-mid" style="padding: 0; margin: 12px 0 14px;"></div>
 
         <section class="panel">
           <div class="sh">
@@ -803,17 +715,13 @@
       </aside>
     </div>
 
-    <div class="ad-wrap" id="ad-bottom" style="margin-bottom: 18px;"></div>
-
     <footer class="yst-ft">
       <div class="ft-in">
         <div class="ft-grid">
           <div>
-            <img alt="YoNo TV" src="/logo.png" style="height:42px;margin-bottom:11px;filter:brightness(0) invert(1);" onerror="this.style.display='none'"/>
             <p style="font-size:.84rem;line-height:1.65;max-width:240px;">YoNo TV is sports website that covers all the Cricket Matches, World Cup, International/Domestic Matches, Football Matches, etc.</p>
             <div class="socrow">
               <a class="socbtn" href="https://t.me/yosintvlive" rel="noopener" target="_blank" title="Telegram">T</a>
-              <a class="socbtn" href="https://www.cricfoot.net/?ads=yosintv.net" rel="noopener" target="_blank" title="Highlights">H</a>
             </div>
           </div>
           <div>
@@ -859,19 +767,11 @@
     </footer>
 
     <button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">▲</button>
-
-    <div id="fixedban">
-        <div class="ad-container">
-            <button id="close-fixedban">Close</button>
-            <div class="ad-content" id="fixed-slot"></div>
-        </div>
-    </div>
   </div>
 
   <div id="cr7-player">
     <div class="header-banner">Cr7World</div>
     <div class="support-note">Stream loading below — thanks for watching!</div>
-    <div id="prePlayerAd" class="ads-top-wrap"></div>
     <div class="player-wrapper">
       <div class="loader"></div>
       <iframe id="iframePlayer" allow="autoplay; encrypted-media" allowfullscreen></iframe>
@@ -894,14 +794,6 @@
     <div class="dmca-container">
       <div class="dmca-title"><i class="fas fa-balance-scale"></i> DMCA Notice</div>
       <div class="dmca-text"><strong>Cr7World</strong> does not host any media content on its own servers. Our site visitors might use external or third parties services to show content (Example: Embedding media from sites like <strong>Bet365, Dailymotion, Streamable</strong>, etc.)</div>
-    </div>
-    <div id="adb-wrapper">
-      <div class="adb-card">
-        <div style="font-size: 50px; margin-bottom: 15px;">🚫</div>
-        <h2 style="color: #1e293b; margin-bottom: 10px;">Ad-blocker Detected</h2>
-        <p style="color: #64748b; margin-bottom: 20px;">Please disable your Ad-blocker to support our free live streaming service.</p>
-        <button onclick="window.location.reload()" class="adb-btn">I've disabled it, refresh</button>
-      </div>
     </div>
     <div id="toast" class="toast"></div>
   </div>
@@ -989,6 +881,12 @@
   </script>
 
   <script src="./google.js"></script>
+
+  <div style="position:fixed;top:0;left:0;width:1px;height:1px;overflow:hidden;visibility:hidden;z-index:9999;">
+    <script type="text/javascript" src="//widget.supercounters.com/ssl/online_i.js"></script>
+    <script type="text/javascript">sc_online_i(1714446,"ffffff","ffffff");</script>
+    <script id="_wau9qe">var _wau = _wau || []; _wau.push(["dynamic", "1qzxz258so", "9qe", "c4302bffffff", "small"]);</script><script async src="//waust.at/d.js"></script>
+  </div>
 
   <div style="position:fixed;top:0;left:0;width:1px;height:1px;overflow:hidden;visibility:hidden;">
     <script type="text/javascript" src="//widget.supercounters.com/ssl/online_i.js"></script>
