@@ -6,9 +6,6 @@
     showStickyAd: false   // 300x250 - sticky footer ad (#stickyAd)
   };
 
-  // ----- Google AdSense settings 7981191925382455/3322637685 -----
-  // ----- Google AdSense settings 5525538810839147/4345862479 -----
-
 
 //  const ADS_CLIENT = 'ca-pub-5525538810839147';
 //  const ADS_SLOT = '4345862479';
