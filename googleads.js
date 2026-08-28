@@ -1,8 +1,8 @@
 (function () {
   // ===== AD CONFIG — flip these to control ads =====
   const CONFIG = {
-    showAds: false,        // MASTER switch: false hides ALL ads (nothing loads)
-    showTopAd: false,      // top banner ad (#prePlayerAd)
+    showAds: true,        // MASTER switch: false hides ALL ads (nothing loads)
+    showTopAd: true,      // top banner ad (#prePlayerAd)
     showStickyAd: false   // 300x250 - sticky footer ad (#stickyAd)
   };
 
