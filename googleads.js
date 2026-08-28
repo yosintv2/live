@@ -12,7 +12,7 @@
   
   
 const ADS_CLIENT = 'ca-pub-7981191925382455';
-const ADS_SLOT = '3322637685';
+const ADS_SLOT = '9016560911';
 
   function loadAdsense() {
     if (document.querySelector('script[data-google-adsense="main"]')) {
